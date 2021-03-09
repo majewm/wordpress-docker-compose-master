@@ -5,6 +5,7 @@
 - **Create docker containers:** <br />
 Create "docker-compose.yml": nano docker-compose.yml: <br />
  <br />
+ 
 ```
     version: "3.9"
         
@@ -35,7 +36,9 @@ Create "docker-compose.yml": nano docker-compose.yml: <br />
     volumes:
       db_data: {}
 ```
+
 <br />
+
 - **Build the project:** <br />
 docker-compose up -d <br />
  <br />
