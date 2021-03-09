@@ -1,0 +1,66 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DEPLOYMENT TEMPLATES</title>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Ubuntu">
+<style>
+body{font-family: Calibri;font-size: 15px;font-style: normal;font-variant: normal;font-weight: normal;	line-height: 120%;}
+b { font-weight: 600; color: #008000; }
+i { font-weight: 600; color: #ff1744; font-size: 18px; font-style: normal; }
+ul {list-style-type:square;margin-left:5;padding:5;}
+ul li {margin-bottom:4;padding:4;}
+</style>
+</head>
+<body>
+<!-- ---------------------------------------------------------------------- -->
+<!-- ---------------------------------------------------------------------- -->
+<ul>
+<li><mark><b>WordPress: <i>in Docker with Docker-Compose:</i></b><br></mark></li>
+<li><b>SOURCE:</b><br><a href="https://docs.docker.com/compose/wordpress/" target="_blank">https://docs.docker.com/compose/wordpress/</a></li>
+<br>
+<li><b><i>Create docker containers:</i></b></li>
+<li><b>Create "docker-compose.yml":</b> nano docker-compose.yml:<br>
+<pre><code class="language-none">
+version: "3.9"
+    
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: somewordpress
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - "8000:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+volumes:
+  db_data: {}
+</code></pre>
+</li>
+<li><b>Build the project:</b><br>
+docker-compose up -d</li>
+<li><b>Test Wordpress:</b><br>http://localhost:8000</li>
+<li><b>Shutdown and cleanup (removes the containers, default network, but preserves the WordPress database):</b><br>
+docker-compose down</li>
+<li><b>Shutdown and cleanup (removes the containers, default network, and the WordPress database):</b><br>
+docker-compose down --volumes</li>
+</ul>
+<br>
+<!-- ---------------------------------------------------------------------- -->
+</body>
+</html>
