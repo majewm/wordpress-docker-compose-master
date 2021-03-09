@@ -43,8 +43,7 @@ Create "docker-compose.yml": nano docker-compose.yml: <br />
 - **Build the project:** <br />
 docker-compose up -d <br />
 
-- **Test Wordpress:** <br />
-- http://localhost:8000 <br />
+- **Test Wordpress:** http://localhost:8000 <br />
 
 - **Shutdown and cleanup** (removes the containers, default network, but preserves the WordPress database): <br />
 docker-compose down <br />
